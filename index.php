@@ -23,6 +23,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
@@ -49,11 +52,19 @@
 
     <div class="container">
 
+      <p data-bind="text:foo"></p>
+    
     </div> <!-- /container -->
 
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/knockout.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/knockout.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+	<script type="text/javascript">
+	  ko.applyBindings(new PageModel());
+	</script>
+
 
   </body>
 </html>
