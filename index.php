@@ -8,9 +8,9 @@
     <meta name="author" content="">
 
 
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
     <link rel="shortcut icon" href="../assets/ico/favicon.png">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
