@@ -120,10 +120,9 @@ PageModel = function(params){
    * 
    */
   self.showCollection = function(collection){
-    console.log(collection);
-    var url = "show_collection.php?id=__ID__";
+    var url = "/show_collection.php?id=__ID__";
     url = url.replace("__ID__", collection.id);
-    url = samplefy.base_host + url;
+    //url = samplefy.base_host + url;
     window.location.href = url;
   }
 }
