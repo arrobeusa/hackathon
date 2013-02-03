@@ -23,7 +23,7 @@
     $avatars = array();
     $images = array('avatar.1.gif', 'avatar.2.gif', 'avatar.3.gif', 'avatar.4.gif', 'avatar.5.gif');    
     
-    $num = rand(1,5);
+    $num = rand(3,5);
     $i = 0;
     
     while ($i < $num) {
