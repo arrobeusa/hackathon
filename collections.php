@@ -122,7 +122,7 @@ PageModel = function(params){
   self.showCollection = function(collection){
     var url = "/show_collection.php?id=__ID__";
     url = url.replace("__ID__", collection.id);
-    alert(url);
+
     window.location.href = url;
   }
 }
