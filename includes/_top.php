@@ -22,6 +22,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/jquery-ui/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/knockout.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    
+    
   </head>
 
   <body>
@@ -37,7 +45,7 @@
           <a class="brand" href="#">Project name</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/index.php">Home</a></li>
+              <li class="active"><a href="/collections.php">Home</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -1,6 +1,3 @@
-<?php include('_top.php') ?>
-
-
     <div class="container">
       <div class="row">
         <div class="create-new span2">
@@ -16,6 +13,3 @@
         </div>
       </div>
     </div>
-
-
-<?php include('_bottom.php') ?>
