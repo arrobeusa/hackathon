@@ -41,11 +41,24 @@ body {
   padding-bottom:5px;
 }
 
+#comments {}
+.comments {}
+#comments .btn-group { margin-bottom:10px;}
+.comment {}
+.comment.designer { border:1px solid red;}
+.comment .body {}
+.comment .image {}
+.comment .created_at {}
+
 .sample .bd {
   padding:5px;
 }
 
 .sample .title .add-to-shipment-checkbox { float:right; position:relative; top:-2px; }
+
+.sample:hover {
+  cursor: pointer;
+}
 
 .shipments { width:50%; }
 .shipments th { background-color:#f2f2f2; border:1px solid #ccc; }

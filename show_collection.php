@@ -12,11 +12,10 @@ $collection_id = $_GET['id'];
   $sample_images = array(
       'sample-image2.png', 'sample-image3.png', 'sample-image4.png',
       'sock140.png'
-  );
-  
+  );  
   
   $samples = array();
-  foreach ($col->find() as $col) {
+  foreach ($col->find(array("collection_id" => $collection_id)) as $col) {
       $samples[] = array(
           'id'                   => (string) $col['_id'],
           'name'                 => @$col['name'],
@@ -27,7 +26,6 @@ $collection_id = $_GET['id'];
   }
   
   $samples_json = json_encode($samples, true);
-
 
 ?>
 
@@ -48,7 +46,7 @@ $collection_id = $_GET['id'];
   <div class="section">
     <h3>Samples</h3>
     <div class="samples-list row-fluid" data-bind="foreach: samples">
-      <div class="sample span3" data-bind="css: {last: $index() == 3}">
+      <div class="sample span3" data-bind="click: $root.showSample, css: {last: $index() == 3}">
         <div class="title">          
           <span class="name" data-bind="text: name"></span>
           <input class="add-to-shipment-checkbox" type="checkbox" data-bind="value:id, checked: $root.addedToShipment" selected="false" />
@@ -156,7 +154,8 @@ $collection_id = $_GET['id'];
   PageModel = function(params){
     var self = this;
      
-    self.samples   = ko.observableArray(params.samples_data);
+    self.collection_id = params.collection_id;
+    self.samples       = ko.observableArray(params.samples_data);
 
 
     // new Sample
@@ -185,8 +184,9 @@ $collection_id = $_GET['id'];
         url: url,
         data: JSON.stringify({
           sample: {
-            "name"         : self.name(),
+            "name"                  : self.name(),
             "special_instructions"  : self.special_instructions(),
+            "collection_id"         : self.collection_id
           }        
         }),      
         success: function(res){
@@ -204,18 +204,31 @@ $collection_id = $_GET['id'];
          
      }
    
-    self.handleAddToShipment = function(){
-    
+    /**
+     * 
+     */
+    self.handleAddToShipment = function(){    
       var form = $('#addToShipmentForm');
       form[0].reset();
       $('#addToShipmentModal').modal('hide');
        
     }
+  
+    /**
+     * 
+     */
+    self.showSample = function(sample){
+      var url = samplefy.base_host + samplefy.routes.show_sample;
+      url = url.replace("__ID__", sample.id);
+      window.location.href = url;
+      
+    }
   }
   
   var samples_data = '<?php echo $samples_json ?>';  
   ko.applyBindings(new PageModel({
-    "samples_data": $.parseJSON(samples_data)
+    "samples_data": $.parseJSON(samples_data),
+    "collection_id": "<?php echo $collection_id ?>"
   }));
   
 </script>

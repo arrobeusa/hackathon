@@ -4,8 +4,8 @@ $raw_request = file_get_contents('php://input');
 $params      = json_decode($raw_request, true);
 
 $errors = array();
-if (!@$params['sample']['collection_id']) {
-  $errors['collection_id'] = "No collection id given";
+if (!@$params['comment']['sample_id']) {
+  $errors['sample_id'] = "No sample id given";
 }
 
 if ($errors) {
@@ -18,10 +18,11 @@ if ($errors) {
 }
 
 
-$sample = array(
-    'name'          => $params['sample']['name'],
-    'description'   => $params['sample']['name'],
-    'collection_id' => $params['sample']['collection_id']
+$sample_id = $params['comment']['sample_id'];
+$comment= array(
+    'author'       => $params['comment']['author'],
+    'created_at'   => date("Y-m-d H:i:s"),
+    'body'         => $params['comment']['body']
 );
 
 
@@ -29,11 +30,14 @@ $sample = array(
 $m   = new Mongo();
 $db  = $m->hackathon;
 $col = $db->samples;
-$col->insert($sample);
+$id = new MongoId($sample_id);
+$col->update(array("_id" => $id), array('$push' => array(
+    'conversation' => $comment
+)));
 
 
 // the response 
-$json = json_encode($sample);
+$json = json_encode($comment);
 header("ContentType: application/json");
 header("Accept: application/json");
 echo $json;
