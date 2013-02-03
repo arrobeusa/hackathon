@@ -25,13 +25,24 @@ body {
 .collection.last { margin-right:0px; }
 
 .collection {
-  width:200px;
+  width:250px;
   margin-right:10px;
   border:1px solid #ccc;
   margin-bottom:10px;
   float:left;
   padding:5px;
   height:150px;
+  
+  background-color:#fff; 
+  padding:10px; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  -webkit-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);  
+  
 }
 
 .samples-list{}

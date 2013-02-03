@@ -17,6 +17,18 @@
   }
   
   $collections_json = json_encode($collections, true);
+  
+  
+  function randomAvatars() {
+    $avatars = array();
+    $images = array('avatar.1.gif', 'avatar.2.gif', 'avatar.3.gif', 'avatar.4.gif', 'avatar.5.gif');    
+    
+    $keys = rand(1,5);
+    
+    return $avatars;
+    
+  }
+  
 ?>
 
 
@@ -27,9 +39,20 @@
 
   <div class="collections-list" data-bind="foreach: $root.collections">
     <div class="collection" data-bind="click: $root.showCollection, css: {last: $index() == $root.collections().length - 1}">
-      <div class="collection-icon"></div>
-      <div class="collection-name" data-bind="text: name"></div>
-      <div class="vendor-name" data-bind="text: vendor.name"></div>
+      <div class="collection-icon"></div>      
+      <div class="collection-name">
+        <span style="font-weight:bold;">Collection Name:</span>
+        <span data-bind="text: name"></span>
+      </div>      
+      <div class="vendor-name" >
+        <span style="font-weight:bold;">Vendor Name:</span>
+        <span data-bind="text: vendor.name"></span>        
+      </div>
+      <div class="collaborators">
+        <?php foreach (randomAvatars() as $avatar): ?>
+          <img src="/FILES/<?php echo $avatar ?>"
+        <?php endforeach ?>
+      </div>
     </div>
   </div>
 
@@ -37,7 +60,7 @@
   <div id="createCollectionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Modal header</h3>
+      <h3 id="myModalLabel">Create a new Collection</h3>
     </div>
     <div class="modal-body">
       <form id="collection-form" action="#" data-bind="submit: handleCreateCollection">
