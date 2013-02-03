@@ -73,7 +73,7 @@ PageModel = function(params){
   
     
   self.handleCreateCollection = function(){
-    var url    = samplefy.base_host = samplefy.routes.api_create_collection;
+    var url    = samplefy.routes.api_create_collection;
     var vendor = self.assignedVendor();    
         
     $.ajax({
@@ -122,7 +122,6 @@ PageModel = function(params){
   self.showCollection = function(collection){
     var url = "/show_collection.php?id=__ID__";
     url = url.replace("__ID__", collection.id);
-    //url = samplefy.base_host + url;
     window.location.href = url;
   }
 }
