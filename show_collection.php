@@ -5,57 +5,88 @@ include('./includes/_top.php');
 $collection_id = $_GET['id'];
 
 
+  $m   = new Mongo();
+  $db  = $m->hackathon;
+  $col = $db->samples;
+
+  $samples = array();
+  foreach ($col->find() as $col) {
+      $samples[] = array(
+          'id'                   => (string) $col['_id'],
+          'name'                 => @$col['name'],
+          'special_instructions' => @$col['special_instructions'],
+          'collection_id'        => @$col['collection_id']
+      );
+  }
+  
+  $samples_json = json_encode($samples, true);
+
+
 ?>
 
-<a class="btn" href="#" data-toggle="modal" data-target="#createSampleModal">Create New Sample</a>
-<a class="btn" href="#" data-toggle="modal" data-target="#addToShipmentModal">Add to Shipment</a>
-<a class="btn" href="#" data-toggle="modal" data-target="#logPO">Log PO</a>
-<div class="samples-list" data-bind="foreach: samples">
-  <div class="sample">
-    <input type="checkbox" selected="false" />
-    <span class="name" data-bind="text: name"></span>
-  </div>  
-</div>
-
-
-<div class="vendor-info" data-bind="with: vendor">
-  <div data-bind="text: name"></div>
-  <div data-bind="text: phone_no"></div>
-  <div data-bind="text: address"></div>
-</div>
-
-<div class="shipments" data-bind="foreach: shipments">
-  <div class="shipment">
-    <div class="sent">
-      <div class="date"></div>
-      <div class="tracking-number"></div>
-    </div>
-    <div class="received">
-      <div class="date"></div>
-      <div class="tracking-number"></div>
-    </div>
-    <button>Receive Shipment</button>
-  </div>
-</div>
-
-<?php // TODO: need to add "vendor" or "designer" class to .conversation depending on source of conversation ?>
-<div class="conversations">
-  <div class="conversation-item">
-    <div class="gravitar"></div>
-    <div class="conversation-text"></div>
-  </div>  
-</div>    
-    
-<div class="uploaded-documents">
-  <div class="uploaded-document"></div>
+<div id="container" class="container">
   
-  <div class="upload-trigger"></div>  
-  <div>
-    <label>Upload a document:</label>
-    <input type="file"/> 
-  </div>  
-</div>
+  <div class="btn-toolbar">
+    <div class="btn-group">
+      <a class="btn" href="#" data-toggle="modal" data-target="#createSampleModal">Create New Sample</a>
+      <a class="btn" href="#" data-toggle="modal" data-target="#addToShipmentModal">Add to Shipment</a>
+      <a class="btn" href="#" data-toggle="modal" data-target="#logPO">Log PO</a>
+    </div>
+    <div class="btn-group">
+      <a class="btn" href="#">Notify Vendor</a>
+      <a class="btn" href="#">Poke Vendor</a>
+    </div>   
+  </div>
+  
+  <div class="section">
+    <h3>Samples</h3>
+    <div class="samples-list row-fluid" data-bind="foreach: samples">
+      <div class="sample span3" data-bind="css: {last: $index() == 3}">
+        <input type="checkbox" data-bind="value:id, checked: $root.addedToShipment" selected="false" />
+        <span class="name" data-bind="text: name"></span>
+      </div>  
+    </div>
+  </div>
+
+  <div class="vendor-info" data-bind="with: vendor">
+    <div data-bind="text: name"></div>
+    <div data-bind="text: phone_no"></div>
+    <div data-bind="text: address"></div>
+  </div>
+
+  <div class="section">
+    <h3>Shipments</h3>
+    <table class="shipments">
+      <tr>
+        <th>Date Sent</th>
+        <th>Tracking Number</th>
+        <th>Date Receive</th>
+        <th>-</th>
+      </tr>
+      <tbody data-bind="foreach: shipments">
+        <tr class="shipment">
+          <td class="date" data-bind="text: date_sent"></td>
+          <td class="tracking-number" data-bind="text: tracking_number"></td>
+          <td class="date" data-bind="text: date_received"></td>
+          <td><button>Receive Shipment</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
     
+  <div class="section">
+    <h3>Documents</h3>
+    <div class="uploaded-documents" data-bind="foreach: uploadedDocuments">
+      <div class="uploaded-document">
+        <div class="document-name" data-bind="text: name"></div>
+        <img src="" data-bind="attr:{src: 'FILES/' + file_name}"/>        
+      </div>
+    </div>    
+    <div class="upload-trigger"></div>  
+  </div>
+</div>   
+
+
 
 <!-- Create Sample Modal -->
 <div id="createSampleModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -64,12 +95,19 @@ $collection_id = $_GET['id'];
     <h3 id="myModalLabel">Modal header</h3>
   </div>
   <div class="modal-body">
-    <form action="#" data-bind="submit: handleCreateSample">
+    <form id="sample-form" action="#" data-bind="submit: handleCreateSample">
       <label>Sample Name:</label>
-      <input placeholder="Name of sample" type="text" data-bind="value: name" />
+      <input placeholder="Name of Sample" type="text" data-bind="value: name" />
 
       <label>Special Instructions:</label>
-      <textarea></textarea>
+      <textarea data-bind="value: special_instructions"></textarea>
+      
+      <?php if (false): ?>
+      <label>Image:</label>
+      <input type="file"/>
+      <?php endif ?>
+      
+      
     </form>
   </div>
   <div class="modal-footer">
@@ -85,7 +123,7 @@ $collection_id = $_GET['id'];
     <h3 id="myModalLabel">Modal header</h3>
   </div>
   <div class="modal-body">
-    <form action="#" data-bind="submit: handleAddToShipment">
+    <form id="addToShipmentForm" action="#" data-bind="submit: handleAddToShipment">
       <label>Tracking Number:</label>
       <input placeholder="Tracking Number" type="text" data-bind="value: name" />
 
@@ -103,27 +141,70 @@ $collection_id = $_GET['id'];
     
 <script type="text/javascript">
   
-  PageModel = function(){
-     var self = this;
+  PageModel = function(params){
+    var self = this;
      
-     self.samples   = ko.observableArray([
-       { "name": 'a sample'},
-       { "name": 'another sample'}
-     ]);
-     self.shipments = ko.observableArray();     
-     self.vendor    = ko.observable({"name": 'dsfasdf', "phone_no": 'adsfsf', "address": "343343"});
+    self.samples   = ko.observableArray(params.samples_data);
+
+
+    // new Sample
+    self.name                 = ko.observable();
+    self.special_instructions = ko.observable();
+
+    self.shipments = ko.observableArray([
+      {"id": 1234, "date_sent": "2013-01-01", "tracking_number": "16Z64X2690303019162", "date_received": "2013-01-22"},
+      {"id": 4567, "date_sent": "2013-02-01", "tracking_number": "5JK64X2698770319165", "date_received": ""}
+    ]);     
+    self.vendor    = ko.observable();
      
-     
-     self.handleCreateSample = function(){
-       
+    
+    self.uploadedDocuments = ko.observableArray([
+      {"name": "Purchase Order", "file_name": "text_enriched.png"},
+      {"name": "Invoice", "file_name": "text_enriched.png"},
+      {"name": "Sample deposit invoice", "file_name": "text_enriched.png"}
+    ]);
+    
+    self.addedToShipment = ko.observableArray();
+    
+    self.handleCreateSample = function(){
+      var url    = samplefy.base_host = samplefy.routes.api_create_sample;
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify({
+          sample: {
+            "name"         : self.name(),
+            "special_instructions"  : self.special_instructions(),
+          }        
+        }),      
+        success: function(res){
+          var form = $('#sample-form');
+          form[0].reset();
+          self.samples.push(res);
+          $('#createSampleModal').modal('hide');
+        },
+        error: function(res) {
+          alert('There was an error');
+        },
+        dataType: 'json',
+        contentType: 'application/json'
+      });    
+         
      }
    
-     self.handleAddToShipment = function(){
+    self.handleAddToShipment = function(){
+    
+      var form = $('#addToShipmentForm');
+      form[0].reset();
+      $('#addToShipmentModal').modal('hide');
        
-     }
+    }
   }
   
-  ko.applyBindings(new PageModel());
+  var samples_data = '<?php echo $samples_json ?>';  
+  ko.applyBindings(new PageModel({
+    "samples_data": $.parseJSON(samples_data)
+  }));
   
 </script>
     
