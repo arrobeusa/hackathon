@@ -108,10 +108,11 @@ PageModel = function(params){
   self.description    = ko.observable();
   self.assignedVendor = ko.observable();
   
-  self.availableVendors     = ko.observableArray([{
-      "id"  : 1234,
-      "name": 'vendor 1'
-  }]);
+  self.availableVendors     = ko.observableArray([
+    { "id"  : 1234, "name": 'Home Simpson' },
+    { "id"  : 4567, "name": 'Billy Randle' },
+    { "id"  : 2345, "name": 'Cindy Dweller'}
+  ]);
 
   self.availableTeamMembers = ko.observableArray(['tm 1', 'tm 2']);
 

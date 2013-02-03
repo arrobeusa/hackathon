@@ -9,13 +9,20 @@ $collection_id = $_GET['id'];
   $db  = $m->hackathon;
   $col = $db->samples;
 
+  $sample_images = array(
+      'sample-image2.png', 'sample-image3.png', 'sample-image4.png',
+      'sock140.png'
+  );
+  
+  
   $samples = array();
   foreach ($col->find() as $col) {
       $samples[] = array(
           'id'                   => (string) $col['_id'],
           'name'                 => @$col['name'],
           'special_instructions' => @$col['special_instructions'],
-          'collection_id'        => @$col['collection_id']
+          'collection_id'        => @$col['collection_id'],
+          'file_path'            => (count($sample_images)) > 0 ? array_shift($sample_images): null,
       );
   }
   
@@ -42,8 +49,13 @@ $collection_id = $_GET['id'];
     <h3>Samples</h3>
     <div class="samples-list row-fluid" data-bind="foreach: samples">
       <div class="sample span3" data-bind="css: {last: $index() == 3}">
-        <input type="checkbox" data-bind="value:id, checked: $root.addedToShipment" selected="false" />
-        <span class="name" data-bind="text: name"></span>
+        <div class="title">          
+          <span class="name" data-bind="text: name"></span>
+          <input class="add-to-shipment-checkbox" type="checkbox" data-bind="value:id, checked: $root.addedToShipment" selected="false" />
+        </div>
+        <div class="bd">
+          <img src="" data-bind="attr:{src: 'FILES/' + file_path}"/>
+        </div>
       </div>  
     </div>
   </div>
@@ -82,7 +94,7 @@ $collection_id = $_GET['id'];
         <img src="" data-bind="attr:{src: 'FILES/' + file_name}"/>        
       </div>
     </div>    
-    <div class="upload-trigger"></div>  
+    <div class="upload-trigger">&nbsp;</div>  
   </div>
 </div>   
 

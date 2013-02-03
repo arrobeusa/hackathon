@@ -29,11 +29,23 @@ body {
   border:1px solid #ccc;
   margin-bottom:10px;
   float:left;
-  padding:5px;
-  height:150px;
-  margin-left: 0px !important;
-  
+  height:190px;
+  margin-left: 0px !important;  
 }
+
+.sample .title {
+  background-color: #F0F8FF;
+  font-weight:bold;
+  padding:3px;
+  padding-left:10px;
+  padding-bottom:5px;
+}
+
+.sample .bd {
+  padding:5px;
+}
+
+.sample .title .add-to-shipment-checkbox { float:right; position:relative; top:-2px; }
 
 .shipments { width:50%; }
 .shipments th { background-color:#f2f2f2; border:1px solid #ccc; }
@@ -44,6 +56,7 @@ body {
 .uploaded-documents { height:150px;}
 .uploaded-document { width:120px; float:left; border:1px solid #f2f2f2; margin-right:10px; }
 .uploaded-document .document-name { padding:3px; overflow:hidden; white-space: nowrap;}
+.uploaded-trigger { width:120px; float:left; border:1px solid #f2f2f2; margin-right:10px; }
 
 
 
