@@ -20,7 +20,7 @@
 ?>
 
 
-<div class="container">
+<div id="container" class="container">
   <div class="btn-group" style="margin-bottom:10px;">
     <a class="btn" href="#" data-toggle="modal" data-target="#createCollectionModal">Create New Collection</a>
   </div>

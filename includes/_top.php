@@ -42,12 +42,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="FILES/color-logo.png"></a>
+          <a class="brand" href="index.php"><img src="FILES/color-logo.png"></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/collections.php">Home</a></li>
+              <!--<li class="active"><a href="/collections.php">Home</a></li>-->
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     </div>
