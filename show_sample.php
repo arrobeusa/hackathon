@@ -40,7 +40,9 @@ $sample_id = $_GET['id'];
     <div class="uploaded-documents" data-bind="foreach: uploadedDocuments">
       <div class="uploaded-document">
         <div class="document-name" data-bind="text: name"></div>
-        <img src="" data-bind="attr:{src: 'FILES/' + file_name}"/>        
+        <a href="FILES/spec.pdf">
+          <img src="" data-bind="attr:{src: 'FILES/' + file_name}"/>       
+        </a>
       </div>
     </div>        
   </div>
@@ -56,7 +58,7 @@ $sample_id = $_GET['id'];
       <div class="comment" data-bind="css:{designer: author == 'designer'}">
         <div class="body" data-bind="text: body"></div>
         <div class="image" data-bind="if: typeof img != 'undefined'">
-          <img data-bind="attr:{src: '/FILES/' + img}"/>
+            <img data-bind="attr:{src: '/FILES/' + img}"/>
         </div>
         <div class="created_at" data-bind="text: created_at"></div>
       </div>
