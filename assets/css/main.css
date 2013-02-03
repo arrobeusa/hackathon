@@ -1,8 +1,20 @@
-
 .brand img { width: 200px; }
 
 body {
   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  background-color: #f2f2f2;
+}
+
+.section { 
+  background-color:#fff; 
+  padding:10px; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  -webkit-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);  
 }
 
 #container { padding-top:70px; min-height:500px; }
@@ -44,8 +56,21 @@ body {
 #comments {}
 .comments {}
 #comments .btn-group { margin-bottom:10px;}
-.comment {}
-.comment.designer { border:1px solid red;}
+.comment { 
+  padding:10px; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  -webkit-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);  
+  
+  margin-bottom: 20px;
+  width:90%;
+}
+.comment.designer { background-color: #F0F8FF; margin-left:50px; }
+.comment.vendor { background-color: #FFA07A; margin-right:50px }
 .comment .body {}
 .comment .image {}
 .comment .created_at {}

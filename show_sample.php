@@ -10,13 +10,15 @@ $sample_id = $_GET['id'];
   $samples = array();
   $id = new MongoId($sample_id);
   
-  $sample = $col->findOne(array("_id" => $id));  
+  $s = $col->findOne(array("_id" => $id));  
   $sample = array(
-      'id'            => (string) $sample['_id'],
-      'name'          => $sample['name'],
-      'description'   => $sample['description'],
-      'conversation'  => $sample['conversation']
+      'id'            => (string) $s['_id'],
+      'name'          => $s['name'],
+      'description'   => $s['description'],      
+      'conversation'  => @$s['conversation']
   );
+  
+
 
   $samples_json = json_encode($sample, true);
   
@@ -29,15 +31,23 @@ $sample_id = $_GET['id'];
 
 
 <div id="container" class="container">
-  <div class="btn-group">
+  <div class="btn-group" style="margin-bottom:10px;">
     <a class="btn" href="#" data-toggle="modal" data-target="#uploadTechSpecModal">Upload Tech Spec</a>
   </div>
   
-  <h3>Technical Documents</h3>
+  <div id="technical-documents" class="section">
+    <h3>Technical Documents</h3>
+    <div class="uploaded-documents" data-bind="foreach: uploadedDocuments">
+      <div class="uploaded-document">
+        <div class="document-name" data-bind="text: name"></div>
+        <img src="" data-bind="attr:{src: 'FILES/' + file_name}"/>        
+      </div>
+    </div>        
+  </div>
   
   <h3>Sample Summary</h3>
   
-  <div id="comments">    
+  <div id="comments" class="section">    
     <h3>Comments</h3>
     <div class="btn-group">
       <a class="btn" href="#" data-toggle="modal" data-target="#addCommentModal">Add Comment</a>
@@ -112,12 +122,19 @@ $sample_id = $_GET['id'];
     self.handleUploadFile = function(){
       
     }
-  
+
+
+    self.uploadedDocuments = ko.observableArray([
+      {"name": "Spec Sheet 1", "file_name": "text_enriched.png"},
+      {"name": "Spec Sheet 2", "file_name": "text_enriched.png"},
+      {"name": "Spec Sheet 3", "file_name": "text_enriched.png"}
+    ]);
+
     /**
      * 
      */
     self.handleAddComments = function(){  
-      var url = samplefy.base_host + samplefy.routes.api_add_comment;
+      var url = samplefy.routes.api_add_comment;
       url     = url.replace("__SAMPLE_ID__", params.sample_id);
 
       $.ajax({
@@ -135,6 +152,7 @@ $sample_id = $_GET['id'];
           var form = $('#addCommentForm');
           form[0].reset();
           $('#addCommentModal').modal('hide');
+          self.comments.push(res);
         },
         error: function(res) {
           alert('There was an error');

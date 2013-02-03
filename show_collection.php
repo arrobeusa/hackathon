@@ -9,10 +9,23 @@ $collection_id = $_GET['id'];
   $db  = $m->hackathon;
   $col = $db->samples;
 
-  $sample_images = array(
-      'sample-image2.png', 'sample-image3.png', 'sample-image4.png',
-      'sock140.png'
-  );  
+  if ($collection_id == "510e7333b3191ef93e000000" || $collection_id == "510e7abbb3191e6e52000000") {
+    $sample_images = array('RR_Blouse1.jpg', 'RR_Blouse2.jpg', 'RR_Blouse3.jpg',
+        'RR_Dress1.PZ.jpg', 'RR_Dress2.jpg', 'RR_Dress3.jpg', 'RR_Dress4.jpg',
+        'RR_Jacket2.jpg', 'RR_jacket1.jpg', 'RR_jumber1.jpg', 'RR_jumber2.jpg',
+        'RR_jumber3.jpg', 'RR_jumper4.jpg', 'RR_heels1.jpg', 'RR_heels2back.jpg',
+        'RR_heels2front.jpg', 'RR_heels2money.jpg', 'RR_heels2side.jpg', 'RR_heels3.jpg',
+        'RR_heels4.jpg', 'RR_redsuede1.jpg', 'RR_redsued2.jpg', 'RR_redsued3.jpg',
+        'RR_redsued4.jpg'
+    );
+  } 
+  else {
+    $sample_images = array(
+        'sample-image2.png', 'sample-image3.png', 'sample-image4.png',
+        'sock140.png'
+    );      
+  }
+  
   
   $samples = array();
   foreach ($col->find(array("collection_id" => $collection_id)) as $col) {
@@ -178,7 +191,7 @@ $collection_id = $_GET['id'];
     self.addedToShipment = ko.observableArray();
     
     self.handleCreateSample = function(){
-      var url    = samplefy.base_host = samplefy.routes.api_create_sample;
+      var url  = samplefy.routes.api_create_sample;
       $.ajax({
         type: "POST",
         url: url,
@@ -218,7 +231,7 @@ $collection_id = $_GET['id'];
      * 
      */
     self.showSample = function(sample){
-      var url = samplefy.base_host + samplefy.routes.show_sample;
+      var url = samplefy.routes.show_sample;
       url = url.replace("__ID__", sample.id);
       window.location.href = url;
       
