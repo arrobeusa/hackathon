@@ -23,7 +23,13 @@
     $avatars = array();
     $images = array('avatar.1.gif', 'avatar.2.gif', 'avatar.3.gif', 'avatar.4.gif', 'avatar.5.gif');    
     
-    $keys = rand(1,5);
+    $num = rand(1,5);
+    $i = 0;
+    
+    while ($i < $num) {
+      $avatars[] = $images[$i];
+      $i++;
+    }
     
     return $avatars;
     
@@ -39,19 +45,20 @@
 
   <div class="collections-list" data-bind="foreach: $root.collections">
     <div class="collection" data-bind="click: $root.showCollection, css: {last: $index() == $root.collections().length - 1}">
-      <div class="collection-icon"></div>      
-      <div class="collection-name">
-        <span style="font-weight:bold;">Collection Name:</span>
-        <span data-bind="text: name"></span>
-      </div>      
-      <div class="vendor-name" >
-        <span style="font-weight:bold;">Vendor Name:</span>
-        <span data-bind="text: vendor.name"></span>        
+      <div class="bd" style="height:100px;">
+        <div class="collection-name">
+          <span style="font-weight:bold;">Collection Name:</span>
+          <span data-bind="text: name"></span>
+        </div>      
+        <div class="vendor-name" >
+          <span style="font-weight:bold;">Vendor Name:</span>
+          <span data-bind="text: vendor.name"></span>        
+        </div>
       </div>
       <div class="collaborators">
         <?php foreach (randomAvatars() as $avatar): ?>
-          <img src="/FILES/<?php echo $avatar ?>"
-        <?php endforeach ?>
+          <img width="45px" src="/FILES/<?php echo $avatar ?>"/>
+        <?php endforeach ?>       
       </div>
     </div>
   </div>
