@@ -10,10 +10,10 @@ $collection_id = $_GET['id'];
   $col = $db->samples;
 
   if ($collection_id == "510e7333b3191ef93e000000" || $collection_id == "510e7abbb3191e6e52000000") {
-    $sample_images = array('RR_Blouse1.jpg', 'RR_Blouse2.jpg', 'RR_Blouse3.jpg',
-        'RR_Dress1.PZ.jpg', 'RR_Dress2.jpg', 'RR_Dress3.jpg', 'RR_Dress4.jpg',
-        'RR_Jacket2.jpg', 'RR_jacket1.jpg', 'RR_jumber1.jpg', 'RR_jumber2.jpg',
-        'RR_jumber3.jpg', 'RR_jumper4.jpg', 'RR_heels1.jpg', 'RR_heels2back.jpg',
+    $sample_images = array('rachelroy/RR_Blouse1.jpg', 'rachelroy/RR_Blouse2.jpg', 'rachelroy/RR_Blouse3.jpg',
+        'rachelroy/RR_Dress1.PZ.jpg', 'rachelroy/RR_Dress2.jpg', 'rachelroy/RR_Dress3.jpg', 'rachelroy/RR_Dress4.jpg',
+        'rachelroy/RR_Jacket2.jpg', 'rachelroy/RR_jacket1.jpg', 'rachelroy/RR_jumber1.jpg', 'rachelroy/RR_jumber2.jpg',
+        'rachelroy/RR_jumber3.jpg', 'rachelroy/RR_jumper4.jpg', 'RR_heels1.jpg', 'RR_heels2back.jpg',
         'RR_heels2front.jpg', 'RR_heels2money.jpg', 'RR_heels2side.jpg', 'RR_heels3.jpg',
         'RR_heels4.jpg', 'RR_redsuede1.jpg', 'RR_redsued2.jpg', 'RR_redsued3.jpg',
         'RR_redsued4.jpg'
